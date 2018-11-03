@@ -16,7 +16,7 @@ class LRUCache
   def get(key)
     node = @map[key]
     
-    if @store.include?(key)
+    if node
       update_node!(node)
       node.val
     elsif count < @max

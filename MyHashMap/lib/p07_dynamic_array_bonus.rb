@@ -27,7 +27,7 @@ class StaticArray
 end
 
 class DynamicArray
-  attr_accessor :count
+  attr_accessor :count, :store
 
   def initialize(capacity = 8)
     @store = StaticArray.new(capacity)
@@ -48,7 +48,10 @@ class DynamicArray
   end
 
   def push(val)
-  end
+    resize! if count == capacity
+    @store[count] = val  
+    @count += 1
+  end 
 
   def unshift(val)
   end
@@ -83,5 +86,13 @@ class DynamicArray
   private
 
   def resize!
+    new_array = StaticArray.new(capacity * 2)
+    
+    i = 0
+    while i < new_array.length
+      new_array[i] = self[i]
+      i += 1
+    end 
+    @store = new_array.store 
   end
 end
